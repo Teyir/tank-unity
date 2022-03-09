@@ -22,6 +22,13 @@ public class TankController : MonoBehaviour
     public float minBarrelRotX; 
     public float maxBarrelRotX;
 
+
+    void Start()
+    {
+        //Remove cursor    
+	    Cursor.visible = false;
+    }
+
     void Update()
     {
         //Basique movements
@@ -41,7 +48,7 @@ public class TankController : MonoBehaviour
         //Detect max movements values
 
       /*
-       * Faire une détection qui nous permettra de limiter l'inclinaison de notre "barrel"
+       * Faire une dÃ©tection qui nous permettra de limiter l'inclinaison de notre "barrel"
        */
   
 
