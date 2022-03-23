@@ -5,14 +5,23 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
 
-    public GameObject theBullet;
+    public GameObject ammo;
     public Transform barrelEnd;
 
-    public int bulletSpeed;
+    public int bulletSpeed = 100;
     public float despawnTime = 3.0f;
 
     public bool shootAble = true;
     public float waitBeforeNextShot = 0.25f;
+
+    public int maxAmmo = 7;
+    private int ammoCount;
+
+    private void Start()
+    {
+        //Define the current ammo amount
+        ammoCount = maxAmmo;
+    }
 
     private void Update()
     {
@@ -25,6 +34,12 @@ public class Shooting : MonoBehaviour
                 StartCoroutine(ShootingYield());
             }
         }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            ammoCount = maxAmmo;
+            Debug.Log("Rechargement du tank");
+        }
     }
 
     IEnumerator ShootingYield()
@@ -32,11 +47,27 @@ public class Shooting : MonoBehaviour
         yield return new WaitForSeconds(waitBeforeNextShot);
         shootAble = true;
     }
+
     void Shoot()
     {
-        var bullet = Instantiate(theBullet, barrelEnd.position, barrelEnd.rotation);
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
 
-        Destroy(bullet, despawnTime);
+        if (ammoCount > 0)
+        {
+            var bullet = Instantiate(ammo, barrelEnd.position, barrelEnd.rotation) as GameObject;
+            bullet.GetComponent<Rigidbody>().velocity = (barrelEnd.transform.up).normalized * bulletSpeed;
+       
+            Destroy(bullet, despawnTime);
+
+            ammoCount--;
+            Debug.Log(ammoCount + " / " + maxAmmo);
+        }
+
+        //Animation telling we don't have any ammo
+        else
+        {
+            Debug.Log("Le chargeur est vide");
+        }
+
     }
+
 }
