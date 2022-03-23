@@ -19,8 +19,8 @@ public class TankController : MonoBehaviour
     public float baseRotY;
 
     //Max rotations values
-    public float minBarrelRotX = 5; 
-    public float maxBarrelRotX = 10;
+    public float minBarrelRotX = -15f; 
+    public float maxBarrelRotX = 10f;
 
 
     void Start()
@@ -41,29 +41,35 @@ public class TankController : MonoBehaviour
         //Move tank turret & barrrel with mouse
         //Base
 
+
+
+        //Detect max movements values
+
+        Debug.Log(turn.y);
+
+        if (turn.y > maxBarrelRotX)
+        {
+            turn.y = maxBarrelRotX;
+        }
+
+        if (turn.y < minBarrelRotX)
+        {
+            turn.y = minBarrelRotX;
+        }
+
+
+
+
+        //Barrel movement
         turn.x += Input.GetAxis("Mouse X");
         turn.y += Input.GetAxis("Mouse Y");
         tankTurretBase.transform.localRotation = Quaternion.Euler(0, turn.x, 0);
 
-        //Detect max movements values
 
-        Debug.Log(Quaternion.Euler(0, tankBarrel.transform.rotation.eulerAngles.x, 0));
-
-        if (tankBarrel.transform.rotation.eulerAngles.x > maxBarrelRotX)
-        {
-            barrelRotX = maxBarrelRotX;
-        }
-
-        if (tankBarrel.transform.rotation.eulerAngles.x < minBarrelRotX)
-        {
-            barrelRotX = minBarrelRotX;
-        }
-
-
-        //Barrel movement
         barrelRotX = Mathf.Clamp(barrelRotX, -45f, 20f);
         tankBarrel.transform.rotation = Quaternion.Euler(turn.y, tankBarrel.transform.rotation.eulerAngles.y, 20);
-        
+
+
     }
 }
 
