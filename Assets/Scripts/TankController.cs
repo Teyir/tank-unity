@@ -23,6 +23,7 @@ public class TankController : MonoBehaviour
     public float maxBarrelRotX = 10f;
 
 
+
     void Start()
     {
         //Remove cursor    
@@ -35,17 +36,7 @@ public class TankController : MonoBehaviour
         transform.Rotate(0, Input.GetAxisRaw("Horizontal") * Time.deltaTime * rotationSpeed, 0);
         transform.Translate(0, 0, Input.GetAxisRaw("Vertical") * Time.deltaTime * movementSpeed);
 
-
-
-
-        //Move tank turret & barrrel with mouse
-        //Base
-
-
-
         //Detect max movements values
-
-        Debug.Log(turn.y);
 
         if (turn.y > maxBarrelRotX)
         {
@@ -58,18 +49,21 @@ public class TankController : MonoBehaviour
         }
 
 
-
-
         //Barrel movement
-        turn.x += Input.GetAxis("Mouse X");
-        turn.y += Input.GetAxis("Mouse Y");
-        tankTurretBase.transform.localRotation = Quaternion.Euler(0, turn.x, 0);
+
+        if (!Input.GetKey(KeyCode.LeftAlt)) //Prevent free camera change barrel position
+        {
+            turn.x += Input.GetAxis("Mouse X");
+            turn.y += Input.GetAxis("Mouse Y");
+            tankTurretBase.transform.localRotation = Quaternion.Euler(0, turn.x, 0);
 
 
-        barrelRotX = Mathf.Clamp(barrelRotX, -45f, 20f);
-        tankBarrel.transform.rotation = Quaternion.Euler(turn.y, tankBarrel.transform.rotation.eulerAngles.y, 20);
-
+            barrelRotX = Mathf.Clamp(barrelRotX, -45f, 20f);
+            tankBarrel.transform.rotation = Quaternion.Euler(turn.y, tankBarrel.transform.rotation.eulerAngles.y, 20);
+        }
 
     }
+
+
 }
 

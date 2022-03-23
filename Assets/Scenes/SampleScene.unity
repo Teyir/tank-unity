@@ -550,7 +550,7 @@ Transform:
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &851476459
 GameObject:
@@ -563,8 +563,9 @@ GameObject:
   - component: {fileID: 851476460}
   - component: {fileID: 851476462}
   - component: {fileID: 851476461}
+  - component: {fileID: 851476463}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: Tank Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -578,10 +579,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 851476459}
   m_LocalRotation: {x: 0.022320671, y: -0, z: -0, w: 0.9997509}
-  m_LocalPosition: {x: 0, y: 1.22, z: -1.079}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -22.24, y: -40.03529, z: -0.82463646}
+  m_LocalScale: {x: 3.8646588, y: 2.3632457, z: 9.924301}
   m_Children: []
-  m_Father: {fileID: 1357343333}
+  m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 2.558, y: 0, z: 0}
 --- !u!81 &851476461
@@ -635,6 +636,24 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &851476463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851476459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aca0d4e9da76d14cafffb52f5527db5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankTransform: {fileID: 1357343333}
+  smoothFactor: 0.5
+  lookPlayer: 0
+  rotateAroundPlayer: 1
+  cameraRotationSpeed: 5
+  rotationSpeed: 5
 --- !u!1 &1271318182
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,7 +684,7 @@ Transform:
   - {fileID: 2130631561}
   - {fileID: 1430508581}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357343328
 GameObject:
@@ -710,8 +729,8 @@ MonoBehaviour:
   barrelRotX: 0
   baseRotation: {x: 0, y: 0, z: 0, w: 0}
   baseRotY: 0
-  minBarrelRotX: -5
-  maxBarrelRotX: 15
+  minBarrelRotX: -15
+  maxBarrelRotX: 10
 --- !u!65 &1357343330
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -786,9 +805,8 @@ Transform:
   m_LocalScale: {x: 3.8646588, y: 2.348125, z: 9.939422}
   m_Children:
   - {fileID: 1494512674}
-  - {fileID: 851476460}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1357343334
 Rigidbody:
@@ -1215,7 +1233,7 @@ Transform:
   m_LocalScale: {x: 361.71613, y: 1, z: 277.838}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1894438683 stripped
 GameObject:
