@@ -19,8 +19,8 @@ public class TankController : MonoBehaviour
     public float baseRotY;
 
     //Max rotations values
-    public float minBarrelRotX; 
-    public float maxBarrelRotX;
+    public float minBarrelRotX = 5; 
+    public float maxBarrelRotX = 10;
 
 
     void Start()
@@ -47,11 +47,20 @@ public class TankController : MonoBehaviour
 
         //Detect max movements values
 
-      /*
-       * Faire une détection qui nous permettra de limiter l'inclinaison de notre "barrel"
-       */
-  
+        Debug.Log(Quaternion.Euler(0, tankBarrel.transform.rotation.eulerAngles.x, 0));
 
+        if (tankBarrel.transform.rotation.eulerAngles.x > maxBarrelRotX)
+        {
+            barrelRotX = maxBarrelRotX;
+        }
+
+        if (tankBarrel.transform.rotation.eulerAngles.x < minBarrelRotX)
+        {
+            barrelRotX = minBarrelRotX;
+        }
+
+
+        //Barrel movement
         barrelRotX = Mathf.Clamp(barrelRotX, -45f, 20f);
         tankBarrel.transform.rotation = Quaternion.Euler(turn.y, tankBarrel.transform.rotation.eulerAngles.y, 20);
         
