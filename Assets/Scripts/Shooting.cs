@@ -17,13 +17,12 @@ public class Shooting : MonoBehaviour
     public int maxAmmo = 7;
     private int ammoCount;
 
+    public GameObject barrelExplosionAnimation;
+
     private void Start()
     {
         //Define the current ammo amount
         ammoCount = maxAmmo;
-
-        //Auto destroy collision explosion
-        Destroy(GameObject.Find("collisionExplosion_Heavy"));
     }
 
     private void Update()
@@ -57,6 +56,11 @@ public class Shooting : MonoBehaviour
         if (ammoCount > 0)
         {
             ammoCount--;
+
+            //Barrel shoot explosion animation
+            var barrelExplosion = Instantiate(barrelExplosionAnimation, barrelEnd.position, barrelEnd.rotation);
+            Destroy(barrelExplosion, despawnTime);
+
 
             var bulletShoot = Instantiate(ammo, barrelEnd.position, barrelEnd.rotation) as GameObject;
             bulletShoot.GetComponent<Rigidbody>().velocity = (barrelEnd.transform.up).normalized * bulletSpeed;
