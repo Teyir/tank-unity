@@ -53,13 +53,18 @@ public class Shooting : MonoBehaviour
 
         if (ammoCount > 0)
         {
-            var bullet = Instantiate(ammo, barrelEnd.position, barrelEnd.rotation) as GameObject;
-            bullet.GetComponent<Rigidbody>().velocity = (barrelEnd.transform.up).normalized * bulletSpeed;
-       
-            Destroy(bullet, despawnTime);
+            var bulletShoot = Instantiate(ammo, barrelEnd.position, barrelEnd.rotation) as GameObject;
+            bulletShoot.GetComponent<Rigidbody>().velocity = (barrelEnd.transform.up).normalized * bulletSpeed;
+
+            //On ajoute la classe dans la bullet
+            bulletShoot.AddComponent<bulletExplod>();
+        
+
+            Destroy(bulletShoot, despawnTime);
 
             ammoCount--;
             Debug.Log(ammoCount + " / " + maxAmmo);
+
         }
 
         //Animation telling we don't have any ammo
@@ -67,6 +72,8 @@ public class Shooting : MonoBehaviour
         {
             Debug.Log("Le chargeur est vide");
         }
+
+
 
     }
 
