@@ -5,13 +5,6 @@ using UnityEngine;
 public class bulletExplod : MonoBehaviour
 {
 
-    private void Start()
-    {
-        //Destroy(gameObject, 5f);
-    }
- 
-    
-
     //The bullet is destroy when he enter in an other collision
     public void OnCollisionEnter(Collision collision)
     {

@@ -17,13 +17,13 @@ public class Shooting : MonoBehaviour
     public int maxAmmo = 7;
     private int ammoCount;
 
-    //Explod animation
-    public GameObject collisionExplosion;
-
     private void Start()
     {
         //Define the current ammo amount
         ammoCount = maxAmmo;
+
+        //Auto destroy collision explosion
+        Destroy(GameObject.Find("collisionExplosion_Heavy"));
     }
 
     private void Update()
@@ -68,7 +68,6 @@ public class Shooting : MonoBehaviour
             var script = bulletShoot.AddComponent<bulletExplod>() as bulletExplod;
 
             Destroy(bulletShoot, despawnTime);
-
         }
 
         //Animation telling we don't have any ammo
