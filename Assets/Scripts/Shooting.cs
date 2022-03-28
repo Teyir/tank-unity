@@ -58,6 +58,7 @@ public class Shooting : MonoBehaviour
             ammoCount--;
 
             //Barrel shoot explosion animation
+            barrelExplosionAnimation.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f); //animation scale (-50%)
             var barrelExplosion = Instantiate(barrelExplosionAnimation, barrelEnd.position, barrelEnd.rotation);
             Destroy(barrelExplosion, despawnTime);
 
