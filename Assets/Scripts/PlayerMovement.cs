@@ -6,12 +6,14 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterController controller;
-    public float speed = 8f;
-    public float gravity = -19.62f;
+    public float walkSpeed = 15f;
+    public float sprintSpeed = 22.5f;
+    private float moveSpeed;
+    private float gravity = -50f;
     public float jumpHeight = 2f;
 
     public Transform groundCheck;
-    public float groundDistance = 0.3f;
+    public float groundDistance = 0.45f;
     public LayerMask groundMask;
 
     Vector3 velocity;
@@ -33,20 +35,30 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
-
-        controller.Move(move * speed * Time.deltaTime);
-
-        if( Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            moveSpeed = sprintSpeed;
         }
+        else
+        {
+            moveSpeed = walkSpeed;
+        }
+
+        controller.Move(move * moveSpeed * Time.deltaTime);
+
+             if(Input.GetButtonDown("Jump") && isGrounded)
+             { 
+                         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+             }         
+        
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+
     }
 }
