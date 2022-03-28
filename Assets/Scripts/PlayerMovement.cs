@@ -6,11 +6,13 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterController controller;
+
     public float walkSpeed = 15f;
     public float sprintSpeed = 22.5f;
     private float moveSpeed;
     private float gravity = -50f;
     public float jumpHeight = 2f;
+
 
     public Transform groundCheck;
     public float groundDistance = 0.45f;
