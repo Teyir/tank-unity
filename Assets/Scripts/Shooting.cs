@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Shooting : MonoBehaviour
+public class Shooting : NetworkBehaviour
 {
 
     public GameObject ammo;
@@ -27,6 +28,12 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
+
+        if(!isLocalPlayer)
+        {
+            return;
+        }
+
         if (Input.GetKey(KeyCode.Mouse0))
         {
             if (shootAble)
@@ -39,8 +46,7 @@ public class Shooting : MonoBehaviour
 
         if (Input.GetKey(KeyCode.R))
         {
-            ammoCount = maxAmmo;
-            Debug.Log("Rechargement du tank");
+            reload();
         }
     }
 
@@ -50,6 +56,7 @@ public class Shooting : MonoBehaviour
         shootAble = true;
     }
 
+    [Command]
     void Shoot()
     {
 
@@ -60,17 +67,19 @@ public class Shooting : MonoBehaviour
             //Barrel shoot explosion animation
             barrelExplosionAnimation.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f); //animation scale (-50%)
             var barrelExplosion = Instantiate(barrelExplosionAnimation, barrelEnd.position, barrelEnd.rotation);
+            NetworkServer.Spawn(barrelExplosion);
             Destroy(barrelExplosion, despawnTime);
 
 
             var bulletShoot = Instantiate(ammo, barrelEnd.position, barrelEnd.rotation) as GameObject;
             bulletShoot.GetComponent<Rigidbody>().velocity = (barrelEnd.transform.up).normalized * bulletSpeed;
 
-            
+            NetworkServer.Spawn(bulletShoot);
+
             Debug.Log(ammoCount + " / " + maxAmmo);
 
             //On ajoute la classe dans la bullet
-            var script = bulletShoot.AddComponent<bulletExplod>() as bulletExplod;
+            //var script = bulletShoot.AddComponent<bulletExplod>() as bulletExplod;
 
             Destroy(bulletShoot, despawnTime);
         }
@@ -81,8 +90,15 @@ public class Shooting : MonoBehaviour
             Debug.Log("Le chargeur est vide");
         }
 
-
-
     }
+
+
+    [Command]
+    void reload()
+    {
+        ammoCount = maxAmmo;
+        Debug.Log("Rechargement du tank");
+    }
+   
 
 }

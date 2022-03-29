@@ -34,7 +34,7 @@ public class playerSetup : NetworkBehaviour
     {
         if(sceneCamera != null)
         {
-            sceneCamera?.gameObject.SetActive(true);
+            sceneCamera.gameObject.SetActive(true);
         }
     }
 
