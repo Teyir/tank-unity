@@ -136,7 +136,7 @@ GameObject:
   m_Layer: 0
   m_Name: _GM
   m_TagString: Untagged
-  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -153,7 +153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoDisplay: {fileID: 913578670}
-  ammoCount: 0
 --- !u!4 &174295786
 Transform:
   m_ObjectHideFlags: 0
@@ -528,7 +527,7 @@ GameObject:
   - component: {fileID: 799070397}
   - component: {fileID: 799070396}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Tank_HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -665,7 +664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.21658537, g: 0.49056602, b: 0.1453186, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -685,7 +684,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: '0 / 0
+
+'
 --- !u!222 &913578671
 CanvasRenderer:
   m_ObjectHideFlags: 0

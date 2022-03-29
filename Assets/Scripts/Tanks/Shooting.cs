@@ -30,7 +30,7 @@ public class Shooting : NetworkBehaviour
     {
         //Define the current ammo amount
         ammoCount = maxAmmo;
-        shootingHUD.updateAmmo(maxAmmo);
+        shootingHUD.updateAmmo(ammoCount, maxAmmo);
     }
 
     private void Update()
@@ -48,6 +48,8 @@ public class Shooting : NetworkBehaviour
                 canShoot = false;
                 Shoot();
                 StartCoroutine(ShootingYield());
+
+                shootingHUD.updateCanShoot(canShoot);
             }
         }
 
@@ -61,6 +63,7 @@ public class Shooting : NetworkBehaviour
     {
         yield return new WaitForSeconds(waitBeforeNextShot);
         canShoot = true;
+        shootingHUD.updateCanShoot(canShoot);
     }
 
     [Command]
@@ -71,7 +74,7 @@ public class Shooting : NetworkBehaviour
         {
             
             ammoCount--;
-            shootingHUD.updateAmmo(ammoCount);
+            shootingHUD.updateAmmo(ammoCount, maxAmmo);
 
             //Barrel shoot explosion animation
             barrelExplosionAnimation.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f); //animation scale (-50%)
@@ -106,7 +109,7 @@ public class Shooting : NetworkBehaviour
     void reload()
     {
         ammoCount = maxAmmo;
-        shootingHUD.updateAmmo(maxAmmo);
+        shootingHUD.updateAmmo(ammoCount, maxAmmo);
         Debug.Log("Rechargement du tank");
     }
    
