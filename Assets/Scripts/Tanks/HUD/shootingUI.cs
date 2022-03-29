@@ -27,5 +27,8 @@ public class shootingUI : MonoBehaviour
         {
             ammoDisplay.color = Color.red;
         }
+
     }
+
+
 }

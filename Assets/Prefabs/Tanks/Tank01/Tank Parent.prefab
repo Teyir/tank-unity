@@ -214,6 +214,7 @@ MonoBehaviour:
   maxBarrelRotX: 10
   camTPS: {fileID: 3966044687155514410}
   camFPS: {fileID: 766492297}
+  fov: 60
   time: 0.35
   timer: 0
 --- !u!54 &3966044686650300834
@@ -251,9 +252,11 @@ MonoBehaviour:
   bulletSpeed: 50
   despawnTime: 1
   canShoot: 1
-  waitBeforeNextShot: 2
+  waitBeforeNextShot: 0.25
   maxAmmo: 7
   barrelExplosionAnimation: {fileID: 5520605757499358845, guid: 254aa8579ccfb1049b9559140c5b036a, type: 3}
+  shootForce: 120
+  upwardForce: 5
 --- !u!114 &7420534275698770480
 MonoBehaviour:
   m_ObjectHideFlags: 0
