@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
@@ -59,7 +58,7 @@ public class Shooting : NetworkBehaviour
     [Command]
     void Shoot()
     {
-
+        
         if (ammoCount > 0)
         {
             ammoCount--;
@@ -91,7 +90,7 @@ public class Shooting : NetworkBehaviour
         }
 
     }
-
+        
 
     [Command]
     void reload()
