@@ -22,9 +22,22 @@ public class TankController : MonoBehaviour
     public float minBarrelRotX = -15f; 
     public float maxBarrelRotX = 10f;
 
+    //Camera
+    public Camera camTPS;
+    public Camera camFPS;
+
+    public int fov = 60;
+
+    //For prevent spam
+    public float time = 0.35f;
+    public float timer = Time.time;
 
     void Start()
     {
+        //Default camera
+        camTPS.enabled = true;
+        camFPS.enabled = false;
+
         //Remove cursor    
 	    Cursor.visible = false;
     }
@@ -58,8 +71,43 @@ public class TankController : MonoBehaviour
 
 
             barrelRotX = Mathf.Clamp(barrelRotX, -45f, 20f);
-            tankBarrel.transform.rotation = Quaternion.Euler(turn.y, tankBarrel.transform.rotation.eulerAngles.y, 20);
+            tankBarrel.transform.rotation = Quaternion.Euler(turn.y, tankBarrel.transform.rotation.eulerAngles.y, 0);
         }
+
+        //Camera
+        timer += Time.deltaTime;
+        if (timer >= time)
+        {
+            if (Input.GetKey(KeyCode.C))
+            {
+                camTPS.enabled = !camTPS.enabled;
+                camFPS.enabled = !camFPS.enabled;
+
+                timer = 0; //reset the timer
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            if(camFPS.enabled)
+            {
+                camFPS.fieldOfView = 30;
+            }
+
+            if (camTPS.enabled)
+            {
+                camTPS.fieldOfView = 30;
+            }
+        }
+        if(Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            //Reset fov
+            camFPS.fieldOfView = fov;
+            camTPS.fieldOfView = fov;
+
+        }
+
+
 
     }
 

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class tankCamera : MonoBehaviour
+public class tankCameraMain : MonoBehaviour
 {
     //Camera
     public Transform tankTransform;
