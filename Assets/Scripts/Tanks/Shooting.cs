@@ -11,7 +11,7 @@ public class Shooting : NetworkBehaviour
     public int bulletSpeed = 100;
     public float despawnTime = 3.0f;
 
-    public bool shootAble = true;
+    public bool canShoot = true;
     public float waitBeforeNextShot = 0.25f;
 
     public int maxAmmo = 7;
@@ -19,10 +19,18 @@ public class Shooting : NetworkBehaviour
 
     public GameObject barrelExplosionAnimation;
 
+    private shootingUI shootingHUD;
+
+    private void Awake()
+    {
+        shootingHUD = GameObject.FindObjectOfType<shootingUI>();
+    }
+
     private void Start()
     {
         //Define the current ammo amount
         ammoCount = maxAmmo;
+        shootingHUD.updateAmmo(maxAmmo);
     }
 
     private void Update()
@@ -35,9 +43,9 @@ public class Shooting : NetworkBehaviour
 
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            if (shootAble)
+            if (canShoot)
             {
-                shootAble = false;
+                canShoot = false;
                 Shoot();
                 StartCoroutine(ShootingYield());
             }
@@ -52,7 +60,7 @@ public class Shooting : NetworkBehaviour
     IEnumerator ShootingYield()
     {
         yield return new WaitForSeconds(waitBeforeNextShot);
-        shootAble = true;
+        canShoot = true;
     }
 
     [Command]
@@ -61,7 +69,9 @@ public class Shooting : NetworkBehaviour
         
         if (ammoCount > 0)
         {
+            
             ammoCount--;
+            shootingHUD.updateAmmo(ammoCount);
 
             //Barrel shoot explosion animation
             barrelExplosionAnimation.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f); //animation scale (-50%)
@@ -96,6 +106,7 @@ public class Shooting : NetworkBehaviour
     void reload()
     {
         ammoCount = maxAmmo;
+        shootingHUD.updateAmmo(maxAmmo);
         Debug.Log("Rechargement du tank");
     }
    

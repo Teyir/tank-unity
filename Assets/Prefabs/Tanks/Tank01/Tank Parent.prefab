@@ -163,8 +163,8 @@ MonoBehaviour:
   barrelEnd: {fileID: 3966044686755595837}
   bulletSpeed: 50
   despawnTime: 1
-  shootAble: 1
-  waitBeforeNextShot: 0.25
+  canShoot: 1
+  waitBeforeNextShot: 2
   maxAmmo: 7
   barrelExplosionAnimation: {fileID: 5520605757499358845, guid: 254aa8579ccfb1049b9559140c5b036a, type: 3}
 --- !u!114 &7420534275698770480

@@ -7,16 +7,11 @@ public class shootingUI : MonoBehaviour
 {
 
     public Text ammoDisplay;
-    public int ammoCount;
+    private int ammoCount = 0;
 
-    public shootingUI(int ammountAmmo)
+    public void updateAmmo(int ammo)
     {
-        ammoCount = ammountAmmo;
-    }
-
-    void Update()
-    {
+        ammoCount = ammo;
         ammoDisplay.text = ammoCount.ToString();
-        
     }
 }
