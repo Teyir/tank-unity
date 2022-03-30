@@ -255,8 +255,6 @@ MonoBehaviour:
   waitBeforeNextShot: 0.25
   maxAmmo: 7
   barrelExplosionAnimation: {fileID: 5520605757499358845, guid: 254aa8579ccfb1049b9559140c5b036a, type: 3}
-  shootForce: 120
-  upwardForce: 5
 --- !u!114 &7420534275698770480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559,11 +557,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tankTransform: {fileID: 3966044686650300833}
-  smoothFactor: 0.5
-  lookPlayer: 0
-  rotateAroundPlayer: 1
-  cameraRotationSpeed: 5
   rotationSpeed: 5
+  _smoothTime: 0.3
+  _distanceFromTarget: 10
+  camTurnAngle: {x: 0.087072775, y: 0.043453403, z: -0.0038016795, w: 0.9952466}
 --- !u!1001 &3966044686665739958
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,39 +4,46 @@ public class tankCameraMain : MonoBehaviour
 {
     //Camera
     public Transform tankTransform;
-    private Vector3 _cameraOffset;
+    private float _rotationX;
+    private float _rotationY;
 
-    [Range(0.01f, 1.0f)]
-    public float smoothFactor = 0.5f;
-    public bool lookPlayer = false;
-    public bool rotateAroundPlayer = true;
-    public float cameraRotationSpeed = 5.0f;
-    public float rotationSpeed = 5f;
+    [SerializeField]
+    public float rotationSpeed = 3.0f;
+    [SerializeField]
+    private float _smoothTime = 0.3f;
+    [SerializeField]
+    private float _distanceFromTarget = 10.0f;
 
-    void Start()
+    public Quaternion camTurnAngle;
+
+    private Vector3 _currentRotation;
+    private Vector3 _smoothVelocity = Vector3.zero;
+
+    private void Start()
     {
-        //Camera
-        _cameraOffset = transform.position - tankTransform.position;
+        transform.position = tankTransform.position - transform.forward * _distanceFromTarget;
     }
 
-
-    void LateUpdate()
+    private void Update()
     {
         if (Input.GetKey(KeyCode.LeftAlt))
         {
-            if (rotateAroundPlayer)
-            {
-                Quaternion camTurnAngle = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeed, Vector3.up);
-                _cameraOffset = camTurnAngle * _cameraOffset;
-            }
+            float mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
+            float mouseY = Input.GetAxis("Mouse Y") * rotationSpeed;
+
+            _rotationX += mouseY;
+            _rotationY += mouseX;
+
+            _rotationX = Mathf.Clamp(_rotationX, -5, 40);
+
+            Vector3 netxtRotation = new Vector3(_rotationX, _rotationY);
+            _currentRotation = Vector3.SmoothDamp(_currentRotation, netxtRotation, ref _smoothVelocity, _smoothTime);
+            transform.localEulerAngles = _currentRotation;
+
+            transform.position = tankTransform.position - transform.forward * _distanceFromTarget;
+
         }
-
-        Vector3 newPos = tankTransform.position + _cameraOffset;
-
-        transform.position = Vector3.Slerp(transform.position, newPos, smoothFactor);
-
-        if (lookPlayer || rotateAroundPlayer)
-            transform.LookAt(tankTransform);
-
     }
+
+
 }
