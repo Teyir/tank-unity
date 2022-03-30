@@ -6,61 +6,85 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterController controller;
-
-    public float walkSpeed = 15f;
-    public float sprintSpeed = 22.5f;
+    public float walkSpeed = 2f;
+    public float sprintSpeed = 8f;
     private float moveSpeed;
-    private float gravity = -50f;
+    private float gravity = -75f;
     public float jumpHeight = 2f;
 
-
     public Transform groundCheck;
-    public float groundDistance = 0.45f;
+    public float groundDistance = 0.3f;
     public LayerMask groundMask;
+    private Animator anim;
 
-    Vector3 velocity;
+    private Vector3 velocity;
     bool isGrounded;
-
     // Start is called before the first frame update
     void Start()
     {
-        
+        anim = GetComponentInChildren<Animator>();
     }
-
     // Update is called once per frame
     void Update()
     {
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if(isGrounded && velocity.y < 0)
+        if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
         Vector3 move = transform.right * x + transform.forward * z;
-        if (Input.GetKey(KeyCode.LeftShift))
+
+
+
+        if (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.Z))
         {
-            moveSpeed = sprintSpeed;
+            Walk();
+        }
+        else if(Input.GetKey(KeyCode.LeftShift))
+        {
+            Run();
         }
         else
         {
-            moveSpeed = walkSpeed;
+            Idle();
         }
 
         controller.Move(move * moveSpeed * Time.deltaTime);
 
-             if(Input.GetButtonDown("Jump") && isGrounded)
-             { 
-                         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-             }         
-        
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            Jump();
+        }
+
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-
-
     }
+
+    private void Idle()
+    {
+        anim.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
+    }
+
+    private void Walk()
+    {
+        moveSpeed = walkSpeed;
+        anim.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
+    }
+
+    private void Run()
+    {
+        moveSpeed = sprintSpeed;
+        anim.SetFloat("Speed", 1 , 0.1f, Time.deltaTime);
+    }
+    private void Jump()
+    {
+        velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+    }
+
 }
