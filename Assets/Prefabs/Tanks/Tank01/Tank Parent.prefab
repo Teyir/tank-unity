@@ -217,6 +217,8 @@ MonoBehaviour:
   fov: 60
   time: 0.35
   timer: 0
+  fuelMax: 10
+  fuelBurnRate: 1
 --- !u!54 &3966044686650300834
 Rigidbody:
   m_ObjectHideFlags: 0

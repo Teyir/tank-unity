@@ -32,6 +32,12 @@ public class TankController : MonoBehaviour
     public float time = 0.35f;
     public float timer = Time.time;
 
+    //Fuel
+    private float fuelCurrent;
+    [SerializeField]
+    private float fuelMax = 800f;
+    public float fuelBurnRate = 75f;
+
     void Start()
     {
         //Default camera
@@ -40,13 +46,40 @@ public class TankController : MonoBehaviour
 
         //Remove cursor    
 	    Cursor.visible = false;
+
+        //Fuel setup
+        fuelCurrent = fuelMax; //In futur save the data and load them
+
     }
 
     void Update()
     {
+
+        //Fuel system
+        if (isMoving())
+        {
+            Debug.Log("Essence: " + fuelCurrent + " / " + fuelMax);
+            fuelCurrent -= fuelBurnRate * Time.deltaTime;
+        }
+
+
+        //Stop engine
+
+
+        //Refuel tank
+        if (Input.GetKey(KeyCode.F))
+        {
+            refuel();
+        }
+
+
         //Basique movements
         transform.Rotate(0, Input.GetAxisRaw("Horizontal") * Time.deltaTime * rotationSpeed, 0);
-        transform.Translate(0, 0, Input.GetAxisRaw("Vertical") * Time.deltaTime * movementSpeed);
+        if (fuelCurrent > 0f)
+        {
+            transform.Translate(0, 0, Input.GetAxisRaw("Vertical") * Time.deltaTime * movementSpeed);
+        }
+        
 
         //Detect max movements values
 
@@ -109,6 +142,24 @@ public class TankController : MonoBehaviour
 
 
 
+    }
+
+    //Check if the tank is moving
+    private bool isMoving()
+    {
+        if(this.GetComponent<Rigidbody>().velocity.magnitude != 0)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+
+    private void refuel()
+    {
+        fuelCurrent = fuelMax;
+        Debug.Log("Rechargement en essence effectué");
     }
 
 
