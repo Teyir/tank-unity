@@ -63,9 +63,6 @@ public class TankController : MonoBehaviour
         }
 
 
-        //Stop engine
-
-
         //Refuel tank
         if (Input.GetKey(KeyCode.F))
         {
@@ -75,6 +72,7 @@ public class TankController : MonoBehaviour
 
         //Basique movements
         transform.Rotate(0, Input.GetAxisRaw("Horizontal") * Time.deltaTime * rotationSpeed, 0);
+
         if (fuelCurrent > 0f)
         {
             transform.Translate(0, 0, Input.GetAxisRaw("Vertical") * Time.deltaTime * movementSpeed);
