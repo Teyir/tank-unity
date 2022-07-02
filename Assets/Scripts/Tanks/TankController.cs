@@ -6,6 +6,11 @@ public class TankController : MonoBehaviour
     public float movementSpeed = 5.0f;
     public float rotationSpeed = 200.0f;
 
+    //Engine
+    public float totalPower;
+    public float KPH;
+    public AnimationCurve enginePower;
+
     //Turn vector
     public Vector2 turn;
 
@@ -71,16 +76,14 @@ public class TankController : MonoBehaviour
 
 
         //Basique movements
-        transform.Rotate(0, Input.GetAxisRaw("Horizontal") * Time.deltaTime * rotationSpeed, 0);
-
         if (fuelCurrent > 0f)
         {
+            transform.Rotate(0, Input.GetAxisRaw("Horizontal") * Time.deltaTime * rotationSpeed, 0);
             transform.Translate(0, 0, Input.GetAxisRaw("Vertical") * Time.deltaTime * movementSpeed);
         }
         
 
         //Detect max movements values
-
         if (turn.y > maxBarrelRotX)
         {
             turn.y = maxBarrelRotX;
